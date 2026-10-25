@@ -1,0 +1,61 @@
+# Binaries
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+bin/
+
+# Test binaries and coverage
+*.test
+*.out
+*.coverprofile
+coverage.html
+coverage.txt
+
+# Profiling
+*.prof
+cpu.out
+mem.out
+block.out
+mutex.out
+
+# Dependency directories
+vendor/
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+!.env.example
+
+# Uploaded files
+uploads/
+
+# Logs
+*.log
+logs/
+
+# Air live reload
+tmp/
+build-errors.log
+
+# Atlas dev database and cache
+*.db
+.atlas/
+
+# Local secrets / keys
+*.pem
+*.key
+*.p12
+
+# IDE / Editor
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+Thumbs.db
+Desktop.ini

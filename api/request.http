@@ -1,0 +1,73 @@
+###
+GET {{$dotenv API_URL}}/products
+
+###
+GET {{$dotenv API_URL}}/products?price=50
+
+###
+GET {{$dotenv API_URL}}/products/1
+
+###
+# const formData = new FormData();
+#
+# formData.append("name", "BabelCoder Go Course");
+# formData.append("price", "111");
+# formData.append("image", imageFile, "image.png");
+#
+# const response = await fetch(`${apiUrl}/products`, {
+#     method: "POST",
+#     body: formData,
+# });
+POST {{$dotenv API_URL}}/products
+Authorization: Bearer {{$dotenv ACCESS_TOKEN}}
+Content-Type: multipart/form-data; boundary=WebKitFormBoundary7MA4YWxkTrZu0gW
+
+--WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="name"
+
+BabelCoder Go Course
+--WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="price"
+
+10
+--WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="image"; filename="image.png"
+Content-Type: image/png
+
+< ./image.png
+--WebKitFormBoundary7MA4YWxkTrZu0gW--
+
+###
+POST {{$dotenv API_URL}}/auth/register
+Content-Type: application/json
+
+{
+    "name": "user01",
+    "email": "user01@babelcoder.com",
+    "password": "user01password"
+}
+
+###
+POST {{$dotenv API_URL}}/auth/login
+Content-Type: application/json
+
+{
+    "email": "user01@babelcoder.com",
+    "password": "user01password"
+}
+
+###
+GET {{$dotenv API_URL}}/auth/me
+Authorization: Bearer {{$dotenv ACCESS_TOKEN}}
+
+###
+POST {{$dotenv API_URL}}/auth/refresh
+Content-Type: application/json
+
+{
+    "refreshToken": "{{$dotenv REFRESH_TOKEN}}"
+}
+
+###
+DELETE {{$dotenv API_URL}}/auth/logout
+Authorization: Bearer {{$dotenv ACCESS_TOKEN}}

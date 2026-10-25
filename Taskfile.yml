@@ -1,0 +1,79 @@
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+
+version: '3'
+
+dotenv: [".env"]
+
+tasks:
+  dev:
+    desc: Run the API server with live reload via air
+    cmds:
+      - air
+  gorm-demo:
+    cmds:
+      - rm ./demo.db
+      - go run main.go
+
+  schema:inspect:
+    desc: Inspect the desired schema from GORM models
+    cmds:
+      - atlas schema inspect --env gorm
+
+  schema:apply:
+    desc: Apply GORM schema directly to the database
+    cmds:
+      - atlas schema apply --env gorm
+
+  schema:clean:
+    desc: Drop all objects fron the database
+    cmds:
+      - atlas schema clean --env gorm
+
+  migrate:diff:
+    desc: Generate a new migration from GORM model changes
+    cmds:
+      - atlas migrate diff --env gorm
+
+  migrate:apply:
+    desc: Apply pending migrations to the database
+    cmds:
+      - atlas migrate apply --env gorm
+
+  migrate:down:
+    desc: Revert applied the last migration
+    cmds:
+      - atlas migrate down --env gorm
+
+  migrate:rm:
+    desc: Remove the last migration file from migrations folder
+    cmds:
+      - atlas migrate rm --env gorm
+
+  migrate:status:
+    desc: Show migration status
+    cmds:
+      - atlas migrate status --env gorm
+
+  seed:
+    desc: Run database seeder
+    cmds:
+      - go run ./cmd/seeder
+
+  build:
+    desc: Build
+    env:
+      APP_ENV: production
+    cmds:
+      - go build -o app.exe ./cmd/api
+
+  start:
+    desc: Start the program
+    env:
+      APP_ENV: production
+      PORT: 9125
+      DB_URL: postgres://postgres:secret@localhost:9216/online_shopping?sslmode=disable&search_path=public
+      JWT_SECRET: krejtiwerujfopsdkjfl;ds
+      JWT_ACCESS_EXPIRY: 5m
+      JWT_REFRESH_EXPIRY: 2160h
+    cmds:
+      - ./app.exe
